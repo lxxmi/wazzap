@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Wazzap</title>
+    <meta name="Wazzap" content="A cool new chat app">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="room.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script> 
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="chat-title-box">      
+        <div class="title-item chat-title-center">
+          <span class="chat-title">
+            Rooms
+          </span>
+        </div>
+        <div class="title-item plus-icon" style="font-size:1.5em;padding:0.5em 1em;">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+      </div>
+      
+        <form class="createRoomForm" action="/room" method="POST">
+          <input name="room" placeholder="Create Room" type="text" autocomplete="off">
+          <button type="submit">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </form>
+      
+      <div class="chat-list">
+      <% Object.keys(rooms).forEach((room)=>{ %>
+        <div class="chat-item">
+          <div class="chat-name">
+            <%=room%>
+          </div>
+          <div class="last-text">
+            <a href="/<%=room%>">Join</a>
+          </div>
+        </div>
+     <% }) %>
+      </div>
+    </div>
+  </body>
+</html>
