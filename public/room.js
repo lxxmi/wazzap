@@ -1,4 +1,36 @@
-      $(function () {
+function copyToClipboard() {
+          let str = document.querySelector(".share-link").innerText;
+          const el = document.createElement('textarea');
+          el.value = str;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          let text = "Link copied to clipboard";
+          showToast(text);
+        }
+        
+function displayShareDialog(){
+  let link =  window.location.href;
+  var shareDialog = document.querySelector(".share-dialog");
+  var shareLink = document.querySelector(".share-link");
+  shareLink.innerHTML = link;
+  shareDialog.className = "share-dialog";
+}
+
+function closeShareDialog(){
+  var shareDialog = document.querySelector(".share-dialog");
+  shareDialog.className = "share-dialog makeHidden";
+}
+
+function showToast(text) {
+  var x = document.getElementById("toast");
+  x.innerHTML = text;
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+}
+
+$(function () {
         var noOfUsers = 0;
         var username = window.prompt("Please enter your name", "");
         if(username == null || username ==""){
@@ -15,6 +47,18 @@
         var typing = $(".typing");
         var userCount = $(".activeUserCount");
         var backbtn = $(".back-btn");
+        var copyBtn = $("copy-btn");
+        var shareLink = $(".share-link");
+        var link = shareLink.value;
+        console.log("link:"+link);
+        
+        function copyToClipboard() {
+          console.log("clicked");
+          var shareLink = document.querySelector(".share-link");
+          shareLink.select();
+          shareLink.setSelectionRange(0, 99999)
+          document.execCommand("copy");
+        }
         
       if(username){
         var socket =io();
@@ -64,9 +108,7 @@
           if (e.keyCode === 13) {sendMessage();}
         });
 
-        backbtn.on('click',()=>{
-          
-        });
+        
         
         function sendMessage(){
           if(text.val()){

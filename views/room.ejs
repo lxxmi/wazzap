@@ -9,16 +9,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="room.css">
+    <link rel="stylesheet" type="text/css" href="/room.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script> 
-    <script>let roomName = "<%= roomName %>"</script>
-    <script src="room.js"></script>
+    <script>
+    let roomName = '<%=roomName%>';
+    </script>
+    <script src="/room.js"></script>
+<!--     <script src="/main.js"></script> -->
   </head>
   <body>
   <div class="container">
-    <div class="chat-title-box">      
+    <div class="chat-title-box">
       <div class="title-item back-left">
         <a class="back-btn" href="/">
           <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -31,8 +34,8 @@
         <span class="typing">
         </span>
       </div>
-      <div class="title-item" style="font-size:1.5em;padding:0.5em 1em;">
-        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+      <div class="title-item share-icon" onclick="displayShareDialog()" title="share room icon" style="font-size:1.5em;padding:0.5em 1em;">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
       </div>
     </div>
       <div class="chat-message-area">
@@ -41,6 +44,28 @@
         <input class="newtext" type="text" placeholder="Type a message..." autocomplete="off">
         <span class="send-btn">SEND</span>
     </div>
-  </div>
+    
+    <div class="share-dialog makeHidden">
+      <header>
+        <span class="text">Share this room link</span>
+        <span class="close-btn" onclick="closeShareDialog()">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </span>
+      </header>
+      <div class="copy">
+        <div class="share-link">
+          link
+        </div>
+        <div>
+          <button onClick="copyToClipboard()" class="copy-btn">
+            Copy Link
+          </button>
+        </div>
+      </div>
+    </div>
+      
+    <div id="toast">toast</div>
+
+    </div>
   </body>
 </html>

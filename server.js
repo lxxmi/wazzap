@@ -20,15 +20,11 @@ app.get("/", function(req, res) {
   res.render('main', { rooms: rooms })
 });
 
-app.get("/room", function(req, res) {
-  res.render("room");
-});
-
-app.get("/:room", function(req, res){
-  if (rooms[req.params.room] == null) {
+app.get("/room/:roomName", function(req, res){
+  if (rooms[req.params.roomName] == null) {
     return res.redirect('/')
   }
-  res.render("room", {roomName: req.params.room});
+  res.render("room", {roomName: req.params.roomName});
 });
 
 app.post("/room", function(req, res){
@@ -36,9 +32,14 @@ app.post("/room", function(req, res){
     return res.redirect("/");
   }
   rooms[req.body.room] = {users:{}};
-  res.redirect(req.body.room);
+  let roomName = "/room/"+req.body.room;
+  console.log("url:"+roomName);
+  res.redirect(roomName);
 });
 
+app.get("*", (req, res)=>{
+  res.render("error");
+})
 
 io.on("connection", socket => {
   socket.on("setUsername", data => {
